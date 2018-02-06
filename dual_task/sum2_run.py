@@ -233,7 +233,7 @@ def sum2_task(args):
     output_size = vocab_upper
 
 
-    words_count = 17
+    words_count = 16
     word_size = 64
     read_heads = 1
 
@@ -471,7 +471,7 @@ def sum2_task_single(args):
     input_size = vocab_upper
     output_size = vocab_upper
 
-    words_count = 33
+    words_count = 32
     word_size = 64
     read_heads = 1
 
@@ -635,7 +635,7 @@ if __name__ == '__main__':
     parser.add_argument('--name', default="dual")
     parser.add_argument('--mode', default="train")
     parser.add_argument('--task', default="hard")
-    parser.add_argument('--seq_len', default=8, type=int)
+    parser.add_argument('--seq_len', default=10, type=int)
     parser.add_argument('--hidden_dim', default=128, type=int)
     parser.add_argument('--use_mem', default=True, type=str2bool)
     parser.add_argument('--share_mem', default=True, type=str2bool)
