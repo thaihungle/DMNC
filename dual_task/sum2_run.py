@@ -17,41 +17,7 @@ from dnc import DNC
 from cached_dnc.cached_controller import CachedLSTMController
 from recurrent_controller import StatelessRecurrentController
 
-import editdistance as ed
 
-def norm_edit_score(real, pred, pprob=0.999):
-
-    trimpred=[]
-    for p in pred:
-        if p>1:
-            trimpred.append(p)
-    trimreal=[]
-    for r in real:
-        if r>1:
-            trimreal.append(r)
-    if np.random.rand() > pprob:
-        print('{} vs {}'.format(trimreal, trimpred))
-    if trimpred is []:
-        return 1
-    #print(trimreal)
-    return ed.eval(trimpred,trimreal)/max(len(trimpred),len(trimreal))
-
-def bleu_score(target_batch, predict_batch, print_prob=0.995):
-    s=[]
-    for b in range(target_batch.shape[0]):
-        trim_target = []
-        trim_predict = []
-        for t in target_batch[b]:
-            if t >1:
-                trim_target.append(t)
-        for t in predict_batch[b]:
-            if t >1:
-                trim_predict.append(t)
-        if np.random.rand()>print_prob:
-            print('{} vs {}'.format(trim_target, trim_predict))
-        BLEUscore = nltk.translate.bleu_score.sentence_bleu([trim_target], trim_predict, weights=[0.5,0.5])
-        s.append(BLEUscore)
-    return np.mean(s)
 
 def exact_acc(target_batch, predict_batch, pprint=1.0):
     acc=[]
@@ -72,80 +38,6 @@ def exact_acc(target_batch, predict_batch, pprint=1.0):
                 ac+=1
         acc.append(ac/max(len(trim_target), len(trim_predict)))
     return np.mean(acc)
-
-def set_score_pre(target_batch, predict_batch):
-    s = []
-    s2 = []
-    for b in range(target_batch.shape[0]):
-        trim_target = []
-        trim_predict = []
-        for t in target_batch[b]:
-            if t > 1:
-                trim_target.append(t)
-        for t in predict_batch[b]:
-            if t > 1:
-                trim_predict.append(t)
-        if np.random.rand()>0.99:
-            print('{} vs {}'.format(trim_target, trim_predict))
-        acc = len(set(trim_target).intersection(set(trim_predict)))/len(set(trim_target))
-        acc2=0
-        if len(set(trim_predict))>0:
-            acc2 = len(set(trim_target).intersection(set(trim_predict))) / len(trim_predict)
-        s.append(acc)
-        s2.append(acc2)
-    return np.mean(s), np.mean(s2)
-
-def set_score_hist(target_batch, predict_batch):
-    acc_label={}
-    guess_label={}
-    count_label={}
-
-    for b in range(target_batch.shape[0]):
-        for  t, t2 in zip(target_batch[b], predict_batch[b]):
-            # print('{} ----- {}'.format(t, t2))
-            trim_target = []
-            for tt in t:
-                if tt > 1:
-                    trim_target.append(tt)
-            for l in trim_target:
-                if l not in count_label:
-                    count_label[l]=0
-                count_label[l]+=1
-
-            trim_predict = []
-            for tt in t2:
-                if tt > 1:
-                    trim_predict.append(tt)
-            if np.random.rand()>0.99:
-                print('{} vs {}'.format(trim_target, trim_predict))
-
-            for l in trim_predict:
-                if l not in guess_label:
-                    guess_label[l]=0
-                guess_label[l]+=1
-
-            correct = list(set(trim_target).intersection(set(trim_predict)))
-            for c in correct:
-                if c not in acc_label:
-                    acc_label[c]=0
-                acc_label[c]+=1
-    recall=[]
-    precision=[]
-    fscore=[]
-    for k,v in sorted(count_label.items()):
-        if k in acc_label:
-            rec = acc_label[k] / count_label[k]
-            prec= acc_label[k] / guess_label[k]
-            recall.append(rec)
-            precision.append(prec)
-            fscore.append(2*rec*prec/(rec+prec))
-
-        else:
-            recall.append(0)
-            precision.append(0)
-            fscore.append(0)
-    return recall, precision, fscore
-
 
 
 def llprint(message):
