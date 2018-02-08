@@ -1,5 +1,6 @@
 # DMNC
-source code for dual memory neural computer
+source code for dual memory neural computer  
+arXiv version: https://arxiv.org/abs/1802.00662v1
 
 # sum2 task
 cd to dual_task folder  
