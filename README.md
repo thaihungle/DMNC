@@ -11,7 +11,10 @@ train Dual LSTM>>python3 sum2_run.py --mode=train --seq_len=10 --use_mem=False -
 train WLAS>>python3 sum2_run.py --mode=train --seq_len=10 --use_mem=False --attend=128  
 train DMNC_l>>python3 sum2_run.py --mode=train --seq_len=10 --use_mem=True --share_mem=False  
 train DMNC_e>>python3 sum2_run.py --mode=train --seq_len=10 --use_mem=True --share_mem=True  
-test: use --mode=test
+test: use --mode=test  
+Learning curves:  
+![Alt text](./dual_task/sum2_acc.png?raw=true "Training Accuracy (%)")  
+![Alt text](./dual_task/sum2_loss.png?raw=true "Training Loss") 
 
 # emr task (drug prescription and disease progression)
 Please prepare the EMR data as described in the paper, which includes:  
