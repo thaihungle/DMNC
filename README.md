@@ -1,6 +1,8 @@
 # DMNC
 source code for dual memory neural computer  
-arXiv version: https://arxiv.org/abs/1802.00662
+arXiv version: https://arxiv.org/abs/1802.00662  
+reference: https://github.com/Mostafa-Samir/DNC-tensorflow  
+
 
 # sum2 task
 cd to dual_task folder  
