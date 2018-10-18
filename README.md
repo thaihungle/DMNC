@@ -1,7 +1,7 @@
 # DMNC
 source code for dual memory neural computer  
 arXiv version: https://arxiv.org/abs/1802.00662  
-KDD version: http://www.kdd.org/kdd2018/accepted-papers/view/dual-memory-neural-computer-for-asynchronous-two-view-sequential-learning
+KDD version: http://www.kdd.org/kdd2018/accepted-papers/view/dual-memory-neural-computer-for-asynchronous-two-view-sequential-learning   
 reference: https://github.com/Mostafa-Samir/DNC-tensorflow  
 
 
