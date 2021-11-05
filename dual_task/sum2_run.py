@@ -425,7 +425,7 @@ def sum2_task(args):
 
 
                         except:
-                            print('fuck')
+                            print('Something wrong...')
                         print('loss {} bleu {}'.format(np.mean(last_100_losses),np.mean(trscores)))
                         if args.mode=='train':
                             summary.value.add(tag='train_bleu', simple_value=np.mean(trscores))
