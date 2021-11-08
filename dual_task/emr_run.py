@@ -229,13 +229,16 @@ def mimic_task_persit_real_dual(args):
 
     llprint("Loading Data ... ")
 
-    llprint("Done!\n")
-    patient_records = pickle.load(open('./data/real_data/mimic/{}/patient_records.pkl'.format(args.task), 'rb'))
+    patient_records = pickle.load(open('./data/real_data/mimic/{}/patient_records_small.pkl'.format(args.task), 'rb'))
     str2tok_diag, str2tok_drug, str2tok_proc\
         = pickle.load(open('./data/real_data/mimic/{}/list_dict_str2token_no_adm.pkl'.format(args.task), 'rb'))
     tok2str_diag, tok2str_proc, tok2str_drug\
         = pickle.load(open('./data/real_data/mimic/{}/list_dict_token2str_no_adm.pkl'.format(args.task), 'rb'))
 
+    # tok2str_diag2 = pickle.load(open('./data/real_data/mimic/{}/dig_token2str_no_adm.pkl'.format(args.task), 'rb'))
+    # tok2str_drug2 = pickle.load(open('./data/real_data/mimic/{}/drug_token2str_no_adm.pkl'.format(args.task), 'rb'))
+    # tok2str_proc2 = pickle.load(open('./data/real_data/mimic/{}/pro_token2str_no_adm.pkl'.format(args.task), 'rb'))
+    llprint("Done!\n")
 
     all_index = list(range(len(patient_records)))
     train_index = all_index[:int(len(patient_records) * 2 / 3)]
@@ -254,6 +257,7 @@ def mimic_task_persit_real_dual(args):
     print('num test {}'.format(len(patient_list_test)))
     print('dim in  {} {}'.format(len(str2tok_diag), len(str2tok_drug)))
     print('dim out {}'.format(len(str2tok_proc)))
+
 
     batch_size = 1
     input_size1 = len(str2tok_diag)
@@ -594,22 +598,22 @@ def mimic_task_persit_real_dual(args):
                             in22 = []
                             out12 = []
                             out22 = []
-                            for c in in1:
-                                if c>1:
-                                    in12.append(tok2str_diag2[int(tok2str_diag[c])])
-                            for c in in2:
-                                if c>1:
-                                    in22.append(tok2str_proc2[int(tok2str_proc[c])])
-                            for c in best_data[2]:
-                                if c > 1:
-                                    out12.append(tok2str_drug2[int(tok2str_drug[c])])
-                            for c in best_data[3]:
-                                if c > 1:
-                                    out22.append(tok2str_drug2[int(tok2str_drug[c])])
-                            print(in12)
-                            print(in22)
-                            print(out12)
-                            print(sorted(out22))
+                            # for c in in1:
+                            #     if c>1:
+                            #         in12.append(tok2str_diag2[int(tok2str_diag[c])])
+                            # for c in in2:
+                            #     if c>1:
+                            #         in22.append(tok2str_proc2[int(tok2str_proc[c])])
+                            # for c in best_data[2]:
+                            #     if c > 1:
+                            #         out12.append(tok2str_drug2[int(tok2str_drug[c])])
+                            # for c in best_data[3]:
+                            #     if c > 1:
+                            #         out22.append(tok2str_drug2[int(tok2str_drug[c])])
+                            # print(in12)
+                            # print(in22)
+                            # print(out12)
+                            # print(sorted(out22))
 
                         if args.mode=='train':
                             summary.value.add(tag='train_jac', simple_value=np.mean(trscores))
