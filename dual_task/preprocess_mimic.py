@@ -1,7 +1,8 @@
 import pickle
 import numpy as np
 import os
-def read_barwon_pkl(dict_patient, store_path="./data/real_data/mimic/trim_diag_proc_drug_no_adm"):
+
+def preprocess(dict_patient, store_path="./data/real_data/mimic/trim_diag_proc_drug_no_adm"):
     """
 
     :param dict_patient: assume this is a dict with keys: pa, diag, proc, med, admit_time.
